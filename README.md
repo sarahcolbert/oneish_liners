@@ -24,7 +24,7 @@ In this example, we want to create a column with the same sample size (80000) fo
 
 ```
 awk '{print $1,$2,$3,$4,$5,80000}' file.txt > file_with_N.txt
-sed -i 's/83566/N/1' file_with_N.txt
+sed -i '1s/83566/N/' file_with_N.txt
 ```
 
 #### How to swap allele columns that are in the wrong order
@@ -43,4 +43,9 @@ And A2 is actually the effect/reference allele and A1 is the non-reference allel
 ```
 head -1 input_file.txt > output_file.txt; awk 'FNR > 1 { t = $4; $4 = $5; $5 = t; print; }' input_file.txt >> output_file.txt
 
+```
+#### Check outerr directory for jobs that may have been cancelled
+
+```
+grep -H -r "CANCELLED" /outerr/
 ```
