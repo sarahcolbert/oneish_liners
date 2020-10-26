@@ -44,8 +44,8 @@ And A2 is actually the effect/reference allele and A1 is the non-reference allel
 head -1 input_file.txt > output_file.txt; awk 'FNR > 1 { t = $4; $4 = $5; $5 = t; print; }' input_file.txt >> output_file.txt
 
 ```
-#### Check outerr directory for jobs that may have been cancelled
+#### Check outerr directory for jobs that may have been cancelled due to time limit and get a list of those jobs
 
 ```
-grep -H -r "CANCELLED" /outerr/
+grep -H -r "CANCELLED" | awk '{print $1}' | sed 's/set.//g' | sed 's/.err:slurmstepd://g' | awk '{print}' ORS=',' > failed_list.txt
 ```
