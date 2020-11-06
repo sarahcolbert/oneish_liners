@@ -10,12 +10,14 @@ bash remove.sh
 ```
 
 
+
 #### How to identify error files that were halted
 
 ```
 ### in outerr directory
 find . | xargs grep -l halted| awk '{print $1}'
 ```
+
 
 
 #### How to add an N, or sample size column
