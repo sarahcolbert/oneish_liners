@@ -24,27 +24,29 @@ find . | xargs grep -l halted| awk '{print $1}'
 grep -H -r "CANCELLED" | awk '{print $1}' | sed 's/set.//g' | sed 's/.err:slurmstepd://g' | awk '{print}' ORS=',' > failed_list.txt
 ```
 
-### If you have files named by job number, chromosome, etc. list all of those in a text file in descending order
+### If you have results files named by job number, chromosome, etc. list all of those in a text file in descending order
 
 ```
-ls -1v *.txt > ../numbered_files.txt
+### in directory containing results files
+ls -1v foo*.txt > numbered_files.txt
 ```
 
 Other things you may want to do with this file:
 
-* Get just a list of numbers
+* Get a list of numbers
 
 ```
 sed -i 's/.txt//g' numbered_files.txt
+sed -i 's/foo//g' numbered_files.txt
 ```
 
 * Get a list of numbers that are missing in the sequence
 
 ```
-awk '{for(i=p+1; i<$1; i++) print i} {p=$1}' numbered_files.txt > missing_numbered_files.txt
+awk '$1!=p+1{print p+1}{p=$1}' ORS=',' numbered_files.txt > missing_numbered_files.txt
 ```
 
-## ONE LINERS FOR WORKING WITH SUMMARY STATISTICS 
+## ONE LINERS FOR WORKING WITH SUMMARY STATISTICS
 
 ### How to add an N, or sample size column to summary statistics
 
@@ -66,7 +68,7 @@ rs114947036 1 100000135 T A
 rs6678176 1 100000827 T C
 ```
 
-And A2 is actually the effect/reference allele and A1 is the non-reference allele so you want to switch these.
+And A2 is actually the effect/reference allele and A1 is the non-reference allele, so you want to switch these. You could use:
 
 ```
 head -1 input_file.txt > output_file.txt; awk 'FNR > 1 { t = $4; $4 = $5; $5 = t; print; }' input_file.txt >> output_file.txt
