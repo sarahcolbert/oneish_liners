@@ -10,14 +10,12 @@ bash remove.sh
 ```
 
 
-
 #### How to identify error files that were halted
 
 ```
 ### in outerr directory
 find . | xargs grep -l halted| awk '{print $1}'
 ```
-
 
 
 #### How to add an N, or sample size column
@@ -60,13 +58,13 @@ ls -1v *.txt > ../numbered_files.txt
 
 Other things you may want to do with this file:
 
-Get just a list of numbers
+* Get just a list of numbers
 
 ```
 sed -i 's/.txt//g' numbered_files.txt
 ```
 
-Get a list of missing files
+* Get a list of missing files
 
 ```
 awk '{for(i=p+1; i<$1; i++) print i} {p=$1}' numbered_files.txt > missing_numbered_files.txt
