@@ -49,3 +49,23 @@ head -1 input_file.txt > output_file.txt; awk 'FNR > 1 { t = $4; $4 = $5; $5 = t
 ```
 grep -H -r "CANCELLED" | awk '{print $1}' | sed 's/set.//g' | sed 's/.err:slurmstepd://g' | awk '{print}' ORS=',' > failed_list.txt
 ```
+
+#### If you have files with numbers, list all of those in a text file in descending order
+
+```
+ls -1v *.txt > ../numbered_files.txt
+```
+
+Other things you may want to do with this file:
+
+Get just a list of numbers
+
+```
+sed -i 's/.txt//g' numbered_files.txt
+```
+
+Get a list of missing files
+
+```
+awk '{for(i=p+1; i<$1; i++) print i} {p=$1}' numbered_files.txt > missing_numbered_files.txt
+```
