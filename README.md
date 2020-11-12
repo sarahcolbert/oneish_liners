@@ -21,7 +21,7 @@ find . | xargs grep -l halted| awk '{print $1}'
 ### Check outerr directory for jobs that may have been cancelled due to time limit and get a list of those jobs
 
 ```
-grep -H -r "CANCELLED" | awk '{print $1}' | sed 's/set.//g' | sed 's/.err:slurmstepd://g' | awk '{print}' ORS=',' > failed_list.txt
+grep -H -r "TIME LIMIT" | awk '{print $1}' | sed 's/set.//g' | sed 's/.err:slurmstepd://g' | awk '{print}' ORS=',' > timed_out_list.txt
 ```
 
 ### If you have results files named by job number, chromosome, etc. list all of those in a text file in descending order
@@ -45,6 +45,25 @@ sed -i 's/foo//g' numbered_files.txt
 ```
 awk '$1!=p+1{print p+1}{p=$1}' ORS=',' numbered_files.txt > missing_numbered_files.txt
 ```
+
+### Check squeue for how many jobs are running and pending
+
+```
+squeue -u saco3854 | awk '
+BEGIN {
+    abbrev["R"]="(Running)"
+    abbrev["PD"]="(Pending)"
+    abbrev["CG"]="(Completing)"
+    abbrev["F"]="(Failed)"
+}
+NR>1 {a[$5]++}
+END {
+    for (i in a) {
+        printf "%-2s %-12s %d\n", i, abbrev[i], a[i]
+    }
+}'
+```
+
 
 ## ONE LINERS FOR WORKING WITH SUMMARY STATISTICS
 
