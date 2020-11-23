@@ -10,14 +10,6 @@ bash remove.sh
 ```
 
 
-### How to identify error files that were halted
-
-```
-### in outerr directory
-find . | xargs grep -l halted| awk '{print $1}'
-```
-
-
 ### Check outerr directory for jobs that may have been cancelled due to time limit and get a list of those jobs
 
 ```
