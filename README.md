@@ -85,3 +85,11 @@ And A2 is actually the effect/reference allele and A1 is the non-reference allel
 head -1 input_file.txt > output_file.txt; awk 'FNR > 1 { t = $4; $4 = $5; $5 = t; print; }' input_file.txt >> output_file.txt
 
 ```
+
+### How to remove NAs or rows with empty fields from munged summary statistics
+
+This code is useful for input files for GNOVA and SUPERGNOVA, since they are not compatible with files with empty fields.
+
+```
+zcat munged.sumstats.gz | awk 'NF==5' > complete.sumstats.txt
+```
