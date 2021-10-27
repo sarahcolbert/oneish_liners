@@ -86,7 +86,9 @@ head -1 input_file.txt > output_file.txt; awk 'FNR > 1 { t = $4; $4 = $5; $5 = t
 
 ```
 
-### How to add a header to an existing file without creating a new file
+### How to add a header to a file
+
+If you want to add a header to an existing file without creating a new file, you can use the '-i' flag with sed, like so:
 
 ```
 sed -i '1i\SNP A1 A2 BETA P' input_file.txt
@@ -97,6 +99,8 @@ If you would like to create a new file instead of replacing, you can remove the 
 ```
 sed '1i\SNP A1 A2 BETA P' input_file.txt > output_file.txt
 ```
+
+
 
 ### How to remove NAs or rows with empty fields from munged summary statistics
 
