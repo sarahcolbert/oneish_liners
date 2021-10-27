@@ -86,6 +86,18 @@ head -1 input_file.txt > output_file.txt; awk 'FNR > 1 { t = $4; $4 = $5; $5 = t
 
 ```
 
+### How to add a header to an existing file without creating a new file
+
+```
+sed -i '1i\SNP A1 A2 BETA P' input_file.txt
+```
+
+If you would like to create a new file instead of replacing, you can remove the '-i' flag and then pipe the output to a new file, like so
+
+```
+sed '1i\SNP A1 A2 BETA P' input_file.txt > output_file.txt
+```
+
 ### How to remove NAs or rows with empty fields from munged summary statistics
 
 This code is useful for input files for GNOVA and SUPERGNOVA, since they are not compatible with files with empty fields.
