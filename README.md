@@ -12,6 +12,8 @@ bash remove.sh
 
 ### Check outerr directory for jobs that may have been cancelled due to time limit and get a list of those jobs
 
+You could also search for strings like "oom-kill" if jobs are being killed because not enough memory was requested
+
 ```
 grep -H -r "TIME LIMIT" | awk '{print $1}' | sed 's/set.//g' | sed 's/.err:slurmstepd://g' | awk '{print}' ORS=',' > timed_out_list.txt
 ```
