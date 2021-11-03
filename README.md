@@ -85,8 +85,18 @@ And A2 is actually the effect/reference allele and A1 is the non-reference allel
 
 ```
 head -1 input_file.txt > output_file.txt; awk 'FNR > 1 { t = $4; $4 = $5; $5 = t; print; }' input_file.txt >> output_file.txt
+```
+
+### How to calculate betas from odds ratios
+
+Say you have a summary statistics file with the following columns: SNP, A1, A2, OR, se, pval.
+Since beta = log(OR) we can use the odds ratio to calculate the beta/effect size using awk. 
 
 ```
+sed '1d' input_file.txt | awk '{print $1,$2,$3,log($4),$5,$6}' | sed '1i\SNP A1 A2 beta se pval' > output_file.txt
+
+```
+
 
 ### How to add a header to a file
 
