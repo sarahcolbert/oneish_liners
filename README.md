@@ -18,6 +18,12 @@ You could also search for strings like "oom-kill" if jobs are being killed becau
 grep -H -r "TIME LIMIT" | awk '{print $1}' | sed 's/set.//g' | sed 's/.err:slurmstepd://g' | awk '{print}' ORS=',' > timed_out_list.txt
 ```
 
+### Delete all lines containing a string except the first occurrence (this is useful for when you concatenate files with same header)
+
+```
+sed '1!{/^header/d;}' inputfile
+```
+
 ### If you have results files named by job number, chromosome, etc. list all of those in a text file in descending order
 
 ```
