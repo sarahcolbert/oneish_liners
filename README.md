@@ -135,8 +135,6 @@ zcat munged.sumstats.gz | awk 'NF==5' > complete.sumstats.txt
 In this example, we have plink files for a sample that are split up by chromosome (e.g., plink_chr1.{fam,bed,bim}, plink_chr2.{fam,bed,bim}, etc.). We want to merge these files to have one set of plink files for the entire genome.
 
 ```
-rm mergelist.txt
-
 for i in {1..22}
 do
 echo plink_chr$i >> mergelist.txt
