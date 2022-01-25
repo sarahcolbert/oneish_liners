@@ -11,7 +11,7 @@ In this example, we want to create a column with the same sample size (80000) fo
 awk '{print $0,80000}' file.txt | sed '1s/80000/N/' > file_with_N.txt
 ```
 
-### How to swap allele columns that are in the wrong order (useful for PRS-CS)
+### How to swap allele columns that are in the wrong order (useful for SAIGE, PRS-CS)
 
 Say for example you have a file which looks like:
 ```
@@ -22,7 +22,7 @@ rs114947036 1 100000135 T A
 rs6678176 1 100000827 T C
 ```
 
-And A2 is actually the effect/reference allele and A1 is the non-reference allele, so you want to switch these. You could use:
+It might be the case, that depending on the GWAS software, A2 = effect/reference allele and A1 = non-reference allele. This is the case for summary statistics produced by SAIGE. For many programs, like PRS-CS, it may ask that A1 = reference allele and A2 = non-reference allele. You can switch the two columns using the code below. Be sure to swap column indices for the correct ones in your file if they differ. 
 
 ```
 head -1 input_file.txt > output_file.txt; awk 'FNR > 1 { t = $4; $4 = $5; $5 = t; print; }' input_file.txt >> output_file.txt
