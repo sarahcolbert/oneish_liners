@@ -1,70 +1,6 @@
 # Helpful One-ish Liners in the Shell
 
 
-### How to delete all files in a directory that contain a string
-
-```
-### use awk to print "rm filename" to remove.sh so that you can first check you are only removing the files you want
-find . | xargs grep -l STRING | awk '{print "rm "$1}' > remove.sh
-bash remove.sh
-```
-
-
-### Check outerr directory for jobs that may have been cancelled due to time limit and get a list of those jobs
-
-You could also search for strings like "oom-kill" if jobs are being killed because not enough memory was requested
-
-```
-grep -H -r "TIME LIMIT" | awk '{print $1}' | sed 's/set.//g' | sed 's/.err:slurmstepd://g' | awk '{print}' ORS=',' > timed_out_list.txt
-```
-
-### Delete all lines containing a string except the first occurrence (this is useful for when you concatenate files with same header)
-
-```
-sed '1!{/^header/d;}' inputfile
-```
-
-### If you have results files named by job number, chromosome, etc. list all of those in a text file in descending order
-
-```
-### in directory containing results files
-ls -1v foo*.txt > numbered_files.txt
-```
-
-Other things you may want to do with this file:
-
-* Get a list of numbers
-
-```
-sed -i 's/.txt//g' numbered_files.txt
-sed -i 's/foo//g' numbered_files.txt
-```
-
-* Get a list of numbers that are missing in the sequence
-
-```
-awk 'NR != $1 { for (i = prev + 1; i < $1; i++) {print i} } { prev = $1 + 1 }' ORS=',' numbered_files.txt > missing_numbered_files.txt
-```
-
-### Check squeue for how many jobs are running and pending
-
-```
-squeue -u saco3854 | awk '
-BEGIN {
-    abbrev["R"]="(Running)"
-    abbrev["PD"]="(Pending)"
-    abbrev["CG"]="(Completing)"
-    abbrev["F"]="(Failed)"
-}
-NR>1 {a[$5]++}
-END {
-    for (i in a) {
-        printf "%-2s %-12s %d\n", i, abbrev[i], a[i]
-    }
-}'
-```
-
-
 ## ONE LINERS FOR WORKING WITH SUMMARY STATISTICS
 
 ### How to add an N, or sample size column to summary statistics
@@ -141,4 +77,69 @@ echo plink_chr$i >> mergelist.txt
 done
 
 plink --merge-list mergelist.txt --make-bed --out merged_plink
+```
+
+## NON-SPECIFIC ONE LINERS
+
+### How to delete all files in a directory that contain a string
+
+```
+### use awk to print "rm filename" to remove.sh so that you can first check you are only removing the files you want
+find . | xargs grep -l STRING | awk '{print "rm "$1}' > remove.sh
+bash remove.sh
+```
+
+
+### Check outerr directory for jobs that may have been cancelled due to time limit and get a list of those jobs
+
+You could also search for strings like "oom-kill" if jobs are being killed because not enough memory was requested
+
+```
+grep -H -r "TIME LIMIT" | awk '{print $1}' | sed 's/set.//g' | sed 's/.err:slurmstepd://g' | awk '{print}' ORS=',' > timed_out_list.txt
+```
+
+### Delete all lines containing a string except the first occurrence (this is useful for when you concatenate files with same header)
+
+```
+sed '1!{/^header/d;}' inputfile
+```
+
+### If you have results files named by job number, chromosome, etc. list all of those in a text file in descending order
+
+```
+### in directory containing results files
+ls -1v foo*.txt > numbered_files.txt
+```
+
+Other things you may want to do with this file:
+
+* Get a list of numbers
+
+```
+sed -i 's/.txt//g' numbered_files.txt
+sed -i 's/foo//g' numbered_files.txt
+```
+
+* Get a list of numbers that are missing in the sequence
+
+```
+awk 'NR != $1 { for (i = prev + 1; i < $1; i++) {print i} } { prev = $1 + 1 }' ORS=',' numbered_files.txt > missing_numbered_files.txt
+```
+
+### Check squeue for how many jobs are running and pending
+
+```
+squeue -u saco3854 | awk '
+BEGIN {
+    abbrev["R"]="(Running)"
+    abbrev["PD"]="(Pending)"
+    abbrev["CG"]="(Completing)"
+    abbrev["F"]="(Failed)"
+}
+NR>1 {a[$5]++}
+END {
+    for (i in a) {
+        printf "%-2s %-12s %d\n", i, abbrev[i], a[i]
+    }
+}'
 ```
