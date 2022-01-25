@@ -12,7 +12,7 @@ awk '{print $1,$2,$3,$4,$5,80000}' file.txt > file_with_N.txt
 sed -i '1s/83566/N/' file_with_N.txt
 ```
 
-### How to swap allele columns that are in the wrong order
+### How to swap allele columns that are in the wrong order (useful for PRS-CS)
 
 Say for example you have a file which looks like:
 ```
@@ -77,6 +77,13 @@ echo plink_chr$i >> mergelist.txt
 done
 
 plink --merge-list mergelist.txt --make-bed --out merged_plink
+```
+
+
+### Convert plink files to vcf files (and compress as .bgz files)
+
+```
+plink --bfile input_prefix --keep-allele-order  --recode vcf-iid bgz --out output_prefix
 ```
 
 ## NON-SPECIFIC ONE LINERS
