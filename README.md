@@ -8,8 +8,8 @@
 In this example, we want to create a column with the same sample size (80000) for each SNP and name that column N.
 
 ```
-awk '{print $1,$2,$3,$4,$5,80000}' file.txt > file_with_N.txt
-sed -i '1s/83566/N/' file_with_N.txt
+awk '{print $0,80000}' file.txt > file_with_N.txt
+sed -i '1s/80000/N/' file_with_N.txt
 ```
 
 ### How to swap allele columns that are in the wrong order (useful for PRS-CS)
