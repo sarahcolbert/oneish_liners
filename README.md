@@ -95,6 +95,15 @@ find . | xargs grep -l STRING | awk '{print "rm "$1}' > remove.sh
 bash remove.sh
 ```
 
+### How to split a vcf file up by chromosome
+```
+## use vcftools
+for i in {1..22}
+    do
+        vcftools --recode --vcf my_data.vcf --chr ${i} --out ./split_by_chr/my_data_chr${i}.vcf
+    done
+
+```
 
 ### Check outerr directory for jobs that may have been cancelled due to time limit and get a list of those jobs
 
