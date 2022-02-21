@@ -138,7 +138,7 @@ sed -i 's/foo//g' numbered_files.txt
 * Get a list of numbers that are missing in the sequence
 
 ```
-awk 'NR != $1 { for (i = prev + 1; i < $1; i++) {print i} } { prev = $1 + 1 }' ORS=',' numbered_files.txt > missing_numbered_files.txt
+seq $(head -n1 numbered_files.txt) $(tail -n1 numbered_files.txt) | grep -vwFf numbered_files.txt > missing_numbered_files.txt
 ```
 
 ### Check squeue for how many jobs are running and pending
