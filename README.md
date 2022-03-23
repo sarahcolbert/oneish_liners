@@ -79,12 +79,6 @@ plink --merge-list mergelist.txt --make-bed --out merged_plink
 ```
 
 
-### Convert plink files to vcf files (and compress as .bgz files)
-
-```
-plink --bfile input_prefix --keep-allele-order  --recode vcf-iid bgz --out output_prefix
-```
-
 ## NON-SPECIFIC ONE LINERS
 
 ### How to delete all files in a directory that contain a string
