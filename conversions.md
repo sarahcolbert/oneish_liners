@@ -4,10 +4,12 @@
 plink --bfile input_prefix --keep-allele-order  --recode vcf-iid bgz --out output_prefix
 ```
 
-### Convert vcf files to plink files
+### Convert vcf files to plink files (when split by chr)
 
 ```
-plink --vcf my.vcf.gz  --make-bed --out output_prefix
+for chr in {1..22}; 
+do plink --vcf chr${chr}.vcf.gz  --make-bed --out $chr; 
+done
 ```
 
 ### Convert 
