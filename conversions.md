@@ -32,7 +32,7 @@ done
 plink --bfile input_prefix --keep-allele-order  --recode vcf-iid bgz --out output_prefix
 ```
 
-### Convert vcf files to plink files (when split by chr) 
+### Convert vcf files to plink files
 * may need to add --double-id if your vcf files do not have FID in the sample IDs
 
 ```
