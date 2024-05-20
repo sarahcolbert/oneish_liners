@@ -34,7 +34,7 @@ Say you have a summary statistics file with the following columns: SNP, A1, A2, 
 Since beta = log(OR) we can use the odds ratio to calculate the beta/effect size using awk. 
 
 ```
-sed '1d' input_file.txt | awk '{print $1,$2,$3,log($4),$5,$6}' | sed '1i\SNP A1 A2 beta se pval' > output_file.txt
+sed '1d' input_file.txt | awk '$4=log($4)' | sed '1i\SNP A1 A2 beta se pval' > output_file.txt
 
 ```
 
@@ -44,7 +44,7 @@ Say you have a summary statistics file with the following columns: SNP, A1, A2, 
 Since beta = log(OR) we can use the beta to calculate the OR using awk. 
 
 ```
-sed '1d' input_file.txt | awk '{print $1,$2,$3,exp($4),$5,$6}' | sed '1i\SNP A1 A2 OR se pval' > output_file.txt
+sed '1d' input_file.txt | awk '$4=exp($4)' | sed '1i\SNP A1 A2 OR se pval' > output_file.txt
 
 ```
 
