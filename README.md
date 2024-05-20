@@ -38,6 +38,15 @@ sed '1d' input_file.txt | awk '{print $1,$2,$3,log($4),$5,$6}' | sed '1i\SNP A1 
 
 ```
 
+### How to calculate odds ratios from betas
+
+Say you have a summary statistics file with the following columns: SNP, A1, A2, BETA, se, pval.
+Since beta = log(OR) we can use the beta to calculate the OR using awk. 
+
+```
+sed '1d' input_file.txt | awk '{print $1,$2,$3,exp($4),$5,$6}' | sed '1i\SNP A1 A2 OR se pval' > output_file.txt
+
+```
 
 ### How to add a header to a file
 
